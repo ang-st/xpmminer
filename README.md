@@ -1,40 +1,70 @@
-Primecoin XPM GPU Miner for xpmpool (aka. madPrimeMiner)
-==============
 
-See: https://bitcointalk.org/index.php?topic=831708.0
---------------
 
-The miner works with:
-- OpenCL (AMD or NVidia)
-- ZEROMQ message system & CZMQ library (+ libsodium on Linux)
-- Google protobuf protocol
-- GMP
-- CMake build system
+From Ethos
 
-How to compile:
-- Build dependencies
-- Create directory for build client
-- Run cmake and make:
+install required packages
+```
+sudo apt install automake m4 libtool  protobuf-compiler  libprotobuf-dev libgmp-dev  libboost-all-dev
+```
 
-cmake ../xpmclient -DOPENCL_LIBRARY=/opt/AMDAPP/lib/x86_64/libOpenCL.so
+build dependencies
 
-make -j5
+```
+cd libsodium
+./autogen.sh
+./configure && make check
+sudo make install
+sudo ldconfig
+cd .;
+cd ..
+git clone git://github.com/zeromq/libzmq.git
+cd libzmq
+./autogen.sh
+./configure && make check
+sudo make install
+sudo ldconfig
+cd ..
+git clone git://github.com/zeromq/czmq.git
+cd czmq
+./autogen.sh
+./configure && make check
+sudo make install
+sudo ldconfig
+cd ..
+```
 
-"../xpmclient" - directory with client source;
+build fixed source
 
-/opt/AMDAPP/lib/x86_64/libOpenCL.so - path to OpenCL library in AMD APP SDK directory
 
-For static build on linux (without additional dependencies) run:
+```
+git clone https://github.com/ang-st/xpmminer
+cd xpmminer
+mkdir build
+cd build 
+cmake .. && make
+cd ..
+```
 
-cmake ../xpmclient -DInstallPrefix=/opt/x86_64-Linux-static -DSTATIC_BUILD=1 -DOPENCL_LIBRARY=/opt/AMDAPP/lib/x86_64/libOpenCL.so
 
-/opt/x86_64-Linux-static - directory with static builds of ZMQ, CZMQ, GMP, protobuf
+create a config file
 
-For cross-compiling for Windows using mingw:
+```
+cat >>config.txt<<EOF
+server = "coinsforall.io";
+port = "6668";
+#foo
+name = "zooor";
+address = "ztj7tziwZZbatY3krirjvDcw4cEQH8iUJrh5wHdx7iEsZHDm2G91FATpmytG6aFCt83aKtFtS4MeMCN9FUKytbNYo2aJShp";
+platform = "amd";
+EOF
+#run
+./build/zcashgpuminer
+```
 
-cmake ../xpmclient -DCMAKE_TOOLCHAIN_FILE=../xpmclient/cmake/Toolchain-cross-mingw32-linux.cmake -DInstallPrefix=/opt/mingw32 -DOPENCL_LIBRARY=/opt/mingw32/lib/x86/OpenCL.lib
 
-/opt/mingw32 - install directory for mingw builds of libraries ZMQ, CZMQ, GMP, protobuf
+Have fun :)
 
-/opt/mingw32/lib/x86/OpenCL.lib - path to OpenCL library for Win32
+
+
+
 
