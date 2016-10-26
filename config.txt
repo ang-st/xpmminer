@@ -1,0 +1,6 @@
+server = "coinsforall.io";
+port = "6668";
+#foo
+name = "zooor";
+address = "ztj7tziwZZbatY3krirjvDcw4cEQH8iUJrh5wHdx7iEsZHDm2G91FATpmytG6aFCt83aKtFtS4MeMCN9FUKytbNYo2aJShp";
+platform = "amd";
