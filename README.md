@@ -1,6 +1,5 @@
 
-
-From Ethos
+##From Ethos (for card not well supported by AMDGPU-PRO)
 
 install required packages
 ```
@@ -32,9 +31,7 @@ sudo make install
 sudo ldconfig
 cd ..
 ```
-
-build fixed source
-
+BUILD
 
 ```
 git clone https://github.com/ang-st/xpmminer
@@ -45,6 +42,38 @@ cmake .. && make
 cd ..
 ```
 
+
+##From Ubuntu 16.04 Desktop
+
+install AMDGPU-PRO
+
+```
+tar -Jxvf amdgpu-pro_16.30.3-315407.tar.xz
+amdgpu-pro-driver/amdgpu-pro-install
+sudo usermod -a -G video $LOGNAME 
+
+```
+install dependencies
+
+```
+apt-get install libprotobuf-dev/xenial libczmq-dev/xenial libgmp-dev cmake
+apt-get install protobuf-compiler
+apt-get install libboost-all-dev
+apt install libsodium-dev
+
+```
+
+BUILD
+
+```
+git clone https://github.com/ang-st/xpmminer
+cd xpmminer
+mkdir build
+cd build 
+cmake .. -DOPENCL_LIBRARY=/usr/lib/x86_64-linux-gnu/amdgpu-pro/libOpenCL.so -DOPENCL_INCLUDE_DIRECTORY=/usr/src/amdgpu-pro-16.30.3-315407/amd/ 
+make 
+cd ..
+```
 
 create a config file
 
