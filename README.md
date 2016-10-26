@@ -9,12 +9,12 @@ sudo apt install automake m4 libtool  protobuf-compiler  libprotobuf-dev libgmp-
 build dependencies
 
 ```
+git clone https://github.com/jedisct1/libsodium.git
 cd libsodium
 ./autogen.sh
 ./configure && make check
 sudo make install
 sudo ldconfig
-cd .;
 cd ..
 git clone git://github.com/zeromq/libzmq.git
 cd libzmq
